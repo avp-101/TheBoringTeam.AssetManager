@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -60,15 +61,15 @@ namespace TheBoringTeam.AssetManagement.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseStaticFiles();
 
             app.Use(async (context, next) =>
             {
                 await next();
                 if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
                 {
-                    context.Request.Path = "/index.html";
-                    context.Response.StatusCode = 200;
-                    await next();
+                    context.Response.ContentType = "text/html";
+                    await context.Response.SendFileAsync("wwwroot/index.html");
                 }
             });
         }
