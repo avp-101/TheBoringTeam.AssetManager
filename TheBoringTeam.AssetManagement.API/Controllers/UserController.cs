@@ -19,9 +19,13 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
+        private readonly IRightService _rightService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IRoleService roleService, IRightService rightService)
         {
+            _rightService = rightService;
+            _roleService = roleService;
             _userService = userService;
         }
 
@@ -42,11 +46,28 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
         public async Task<IActionResult> GetById(string id)
         {
             User user = _userService.GetById(id);
+
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(user);
+
+            UserDTO userReturned = new UserDTO();
+
+            userReturned.Id = user.Id;
+            userReturned.DisplayName = user.DisplayName;
+
+            Role role = this._roleService.GetById(user.RoleId);
+            IEnumerable<Right> rights = this._rightService.Search(r => role.Rights.Contains(r.Id));
+
+            userReturned.Role = new RoleDTO()
+            {
+                Name =  role.Name,
+                Rights = rights.Select(r => new RightDTO() { Name = r.Name })
+            };
+
+            return Ok(userReturned);
+
         }
 
         [HttpPost]

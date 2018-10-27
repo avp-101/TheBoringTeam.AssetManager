@@ -24,7 +24,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Insert([FromBody] RightCreateDTO request)
+        public async Task<IActionResult> Insert([FromBody] RightDTO request)
         {
             try
             {
