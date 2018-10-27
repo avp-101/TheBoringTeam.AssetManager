@@ -12,6 +12,7 @@ import { FormBuilder, Validators, FormGroup } from '../../../../node_modules/@an
 export class LoginComponent implements OnInit {
 
   public form: FormGroup= null;
+  public isLogggingIn: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -40,11 +41,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.isLogggingIn = true;
     this.userService.Login(username, password)
     .subscribe((result) => {
       this.router.navigate(['/dashboard']);
       this.alertService.ShowSuccess('Successfully logged in');
+      this.isLogggingIn = false;
     }, (err) => {
+      this.isLogggingIn = false;
       if(err.status === 400) {
         this.alertService.ShowError('Invalid username or password');
       } else {

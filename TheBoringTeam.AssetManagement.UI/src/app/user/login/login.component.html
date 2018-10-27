@@ -21,7 +21,8 @@
         </div>
       </form>
       <div style="margin-top: 36px;" class="col-md-12">
-        <button [disabled]="form.invalid" (click)="Login()" color="primary" mat-raised-button>Login</button>
+        <button *ngIf="!isLogggingIn" [disabled]="form.invalid" (click)="Login()" color="primary" mat-raised-button>Login</button>
+        <button color="primary" *ngIf="isLogggingIn" mat-raised-button>Loading...</button>
       </div>
     </mat-card>
   </div>
