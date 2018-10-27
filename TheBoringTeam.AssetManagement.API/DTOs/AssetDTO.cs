@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using TheBoringTeam.AssetManagement.Models.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace TheBoringTeam.AssetManagement.Models
+namespace TheBoringTeam.AssetManagement.API.DTOs
 {
-    public class Asset: IIdentifiable, ITrackable
+    public class AssetDTO
     {
         [Required]
         public string Id { get; set; }
@@ -16,10 +16,5 @@ namespace TheBoringTeam.AssetManagement.Models
 
         [Required]
         public IDictionary<string, string> Extra { get; set; }
-
-        [Required]
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
     }
 }
