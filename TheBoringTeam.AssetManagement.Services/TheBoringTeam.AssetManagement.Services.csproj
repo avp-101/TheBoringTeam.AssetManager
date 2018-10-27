@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TheBoringTeam.AssetManagement.Models\TheBoringTeam.AssetManagement.Models.csproj" />
+    <ProjectReference Include="..\TheBoringTeam.AssetManagement.Repositories\TheBoringTeam.AssetManagement.Repositories.csproj" />
+  </ItemGroup>
+
 </Project>
