@@ -1,0 +1,19 @@
+.icon {
+    height: 100px;
+    width: 100px;
+    background-color: #fff;
+    position: relative;
+    color: #3f51b5;
+    margin: 0 auto;
+    line-height: 100px;
+    text-align: center;
+}
+
+mat-form-field {
+    width: 50%;
+}
+
+.login-box {
+    text-align: center;
+    margin-top: 5%;
+}

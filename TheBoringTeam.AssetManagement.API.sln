@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBoringTeam.AssetManageme
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBoringTeam.AssetManagement.Services", "TheBoringTeam.AssetManagement.Services\TheBoringTeam.AssetManagement.Services.csproj", "{05EBE3E8-BBBF-44A0-8BB0-F8FC78FD91A3}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TheBoringTeam.AssetManagement.UI", "TheBoringTeam.UI\TheBoringTeam.AssetManagement.UI.njsproj", "{C55822D8-63D2-4D0F-849F-FD17608ADC9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{05EBE3E8-BBBF-44A0-8BB0-F8FC78FD91A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05EBE3E8-BBBF-44A0-8BB0-F8FC78FD91A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05EBE3E8-BBBF-44A0-8BB0-F8FC78FD91A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55822D8-63D2-4D0F-849F-FD17608ADC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55822D8-63D2-4D0F-849F-FD17608ADC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55822D8-63D2-4D0F-849F-FD17608ADC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55822D8-63D2-4D0F-849F-FD17608ADC9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
