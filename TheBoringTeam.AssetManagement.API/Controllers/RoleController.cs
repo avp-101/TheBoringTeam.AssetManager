@@ -38,7 +38,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
 
             roleReturned.Name = role.Name;
 
-            IEnumerable<Right> rights = this._rightService.Search(r => role.Rights.Contains(r.Id));
+            IEnumerable<Right> rights = this._rightService.Search(r => role.RightIds.Contains(r.Id));
 
             roleReturned.Rights = rights.Select(r => new RightDTO() {Name = r.Name});
             return Ok(roleReturned);
@@ -53,7 +53,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
                 Role role = new Role()
                 {
                     Name = request.Name,
-                    Rights = request.Rights
+                    RightIds = request.Rights
                 };
 
                 _roleService.Insert(role);

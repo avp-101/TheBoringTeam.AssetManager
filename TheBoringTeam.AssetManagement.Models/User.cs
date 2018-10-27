@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -8,6 +9,7 @@ namespace TheBoringTeam.AssetManagement.Models
 {
     public class User: IIdentifiable, ITrackable
     {
+        [BsonId]
         public string Id { get; set; }
         
         public string DisplayName { get; set; }
@@ -19,6 +21,9 @@ namespace TheBoringTeam.AssetManagement.Models
         public string Password { get; set; }
         
         public string RoleId { get; set; }
+
+        [BsonIgnore]
+        public Role Role { get; set; }
         
         public DateTime CreatedOn { get; set; }
 

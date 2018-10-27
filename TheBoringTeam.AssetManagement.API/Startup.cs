@@ -111,6 +111,26 @@ namespace TheBoringTeam.AssetManagement.API
                     ValidateAudience = false
                 };
             });
+
+            services.AddAuthorization(opts =>
+            {
+                opts.AddPolicy("AssetsRead", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("AssetsRead"));
+
+                opts.AddPolicy("AssetsEdit", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("AssetsEdit"));
+
+                opts.AddPolicy("UsersRead", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("UsersRead"));
+
+                opts.AddPolicy("UsersEdit", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("UsersEdit"));
+            });
+
         }
     }
 }

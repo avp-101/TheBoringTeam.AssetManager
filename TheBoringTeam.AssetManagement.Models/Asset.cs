@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -8,10 +9,12 @@ namespace TheBoringTeam.AssetManagement.Models
 {
     public class Asset: IIdentifiable, ITrackable
     {
+        [BsonId]
         public string Id { get; set; }
         
         public IEnumerable<string> Tags { get; set; }
         
+        [BsonExtraElements]
         public IDictionary<string, string> Extra { get; set; }
         
         public DateTime CreatedOn { get; set; }
