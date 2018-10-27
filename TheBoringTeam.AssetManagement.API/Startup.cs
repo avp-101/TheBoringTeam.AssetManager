@@ -55,10 +55,18 @@ namespace TheBoringTeam.AssetManagement.API
     {
         public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IBaseMongoRepository<User>, BaseMongoRepository<User>>();
-            services.AddTransient<IBaseMongoRepository<Asset>, BaseMongoRepository<Asset>>();
+            services.AddTransient<IBaseMongoRepository<User>>(f =>
+                new BaseMongoRepository<User>(configuration["mongoConnectionString"],
+                    configuration["mongoDatabaseName"],
+                    true));
+            services.AddTransient<IBaseMongoRepository<Asset>>(f =>
+                new BaseMongoRepository<Asset>(configuration["mongoConnectionString"],
+                    configuration["mongoDatabaseName"],
+                    true));
             services.AddTransient<IBaseService<User>, BaseService<User>>();
             services.AddTransient<IBaseService<Asset>, BaseService<Asset>>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAssetService, AssetService>();
         }
     }
 }
