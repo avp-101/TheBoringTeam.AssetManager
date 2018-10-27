@@ -15,7 +15,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
 {
     [Route("api/user")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
