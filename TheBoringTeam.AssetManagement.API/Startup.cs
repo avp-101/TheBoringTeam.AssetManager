@@ -26,6 +26,7 @@ namespace TheBoringTeam.AssetManagement.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddConfiguration(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +43,14 @@ namespace TheBoringTeam.AssetManagement.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+    }
+
+    public static class Extensions
+    {
+        public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+
         }
     }
 }
