@@ -7,5 +7,6 @@ namespace TheBoringTeam.AssetManagement.Services.Interfaces
 {
     public interface IUserService: IBaseService<User>
     {
+        string Authenticate(string username, string password);
     }
 }
