@@ -8,13 +8,12 @@ namespace TheBoringTeam.AssetManagement.Models
 {
     public class Role: IIdentifiable, ITrackable
     {
-        [Required]
         public string Id { get; set; }
 
-        [Required]
-        public string RoleId { get; set; }
-
-        [Required]
+        public string Name { get; set; }
+        
+        public IEnumerable<string> Rights { get; set; }
+        
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

@@ -65,8 +65,12 @@ namespace TheBoringTeam.AssetManagement.API
                     true));
             services.AddTransient<IBaseService<User>, BaseService<User>>();
             services.AddTransient<IBaseService<Asset>, BaseService<Asset>>();
+            services.AddTransient<IBaseService<Role>, BaseService<Role>>();
+            services.AddTransient<IBaseService<Right>, BaseService<Right>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAssetService, AssetService>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IRightService, RightService>();
         }
     }
 }
