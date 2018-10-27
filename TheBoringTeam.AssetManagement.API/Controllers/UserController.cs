@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver.Core.Authentication;
@@ -14,6 +15,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
 {
     [Route("api/user")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -22,7 +24,19 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
         {
             _userService = userService;
         }
-        
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody]UserLoginDTO userParam)
+        {
+            var user = _userService.Authenticate(userParam.Username, userParam.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(user);
+        }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(string id)

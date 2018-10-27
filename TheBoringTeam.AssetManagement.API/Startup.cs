@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using TheBoringTeam.AssetManagement.Models;
 using TheBoringTeam.AssetManagement.Repositories.Entities;
 using TheBoringTeam.AssetManagement.Repositories.Interfaces;
@@ -32,6 +35,7 @@ namespace TheBoringTeam.AssetManagement.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddConfiguration(Configuration);
+            services.AddAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +49,13 @@ namespace TheBoringTeam.AssetManagement.API
             {
                 app.UseHsts();
             }
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();
@@ -67,6 +78,27 @@ namespace TheBoringTeam.AssetManagement.API
             services.AddTransient<IBaseService<Asset>, BaseService<Asset>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAssetService, AssetService>();
+        }
+        public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            var key = Encoding.ASCII.GetBytes(configuration["appSecret"]);
+            services.AddAuthentication(f =>
+            {
+                f.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                f.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(f =>
+            {
+                f.RequireHttpsMetadata = false;
+                f.SaveToken = true;
+                f.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         }
     }
 }
