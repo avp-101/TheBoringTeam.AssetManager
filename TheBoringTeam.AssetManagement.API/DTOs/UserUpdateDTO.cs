@@ -6,21 +6,12 @@ using System.Threading.Tasks;
 
 namespace TheBoringTeam.AssetManagement.API.DTOs
 {
-    public class UserCreateDTO
+    public class UserUpdateDTO
     {
         [Required]
         public string DisplayName { get; set; }
 
         [Required]
         public string Email { get; set; }
-
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Required]
-        public string RoleId { get; set; }
     }
 }

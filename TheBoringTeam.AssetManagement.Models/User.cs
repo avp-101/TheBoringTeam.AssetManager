@@ -15,13 +15,16 @@ namespace TheBoringTeam.AssetManagement.Models
         public string DisplayName { get; set; }
 
         [Required]
+        public string Email { get; set; }
+
+        [Required]
         public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }
 
         [Required]
-        public string Role { get; set; }
+        public string RoleId { get; set; }
 
         [Required]
         public IEnumerable<string> Rights { get; set; }
