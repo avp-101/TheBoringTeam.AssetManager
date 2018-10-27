@@ -6,7 +6,7 @@ using TheBoringTeam.AssetManagement.Models.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.Services.Interfaces
 {
-    public interface IBaseServices<TBaseEntity> where TBaseEntity: IIdentifiable, ITrackable
+    public interface IBaseService<TBaseEntity> where TBaseEntity: IIdentifiable, ITrackable
     {
         IEnumerable<TBaseEntity> Search(Expression<Func<TBaseEntity, bool>> filter);
         TBaseEntity GetById(string id);

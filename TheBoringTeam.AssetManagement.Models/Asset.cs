@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using TheBoringTeam.AssetManagement.Models.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.Models
 {
-    public class Asset
+    public class Asset: IIdentifiable, ITrackable
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string Tag { get; set; }
