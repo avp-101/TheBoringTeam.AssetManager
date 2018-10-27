@@ -12,7 +12,7 @@ using TheBoringTeam.AssetManagement.Services.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
         }
         
         [HttpGet]
-        [Route("")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             User user = _userService.GetById(id);
@@ -42,7 +42,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
             try
             {
 
-                if (!String.IsNullOrEmpty(request.Username))
+                if (String.IsNullOrEmpty(request.Username))
                 {
                     ModelState.AddModelError("Username", "Username is empty");
                 }
