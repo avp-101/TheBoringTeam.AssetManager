@@ -1,0 +1,1 @@
+# TheBoringTeam.AssetManager
