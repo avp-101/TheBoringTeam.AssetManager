@@ -49,7 +49,6 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
                 Email = user.Email,
                 Username = user.Username,
                 RoleId = user.RoleId,
-                Rights = user.Rights,
                 CreatedOn = user.CreatedOn,
                 ModifiedOn = user.ModifiedOn,
                 AccessToken = tokenHandler.WriteToken(token)

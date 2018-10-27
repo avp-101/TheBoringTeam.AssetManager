@@ -11,7 +11,7 @@ using TheBoringTeam.AssetManagement.Services.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/right")]
     [ApiController]
     public class RightController : ControllerBase
     {
