@@ -22,12 +22,27 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
             _rightService = rightService;
         }
 
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var rights = this._rightService.Search(f => true);
+
+            IEnumerable<RightDTO> rightsReturned = rights.Select(r => new RightDTO() {Name = r.Name});
+            return Ok(rightsReturned);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> Insert([FromBody] RightDTO request)
         {
             try
             {
+                if (this._rightService.Search(r => r.Name == request.Name).Any())
+                {
+                    return BadRequest("Name must be unique");
+                }
+
                 Right right = new Right()
                 {
                     Name = request.Name

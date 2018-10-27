@@ -25,6 +25,22 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
         }
 
         [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var roles = this._roleService.Search(f => true);
+            var rights = this._rightService.Search(f => true);
+
+            foreach (var role in roles)
+            {
+                role.Rights = rights.Where(f => role.RightIds.Contains(f.Id));
+            }
+
+            IEnumerable<RoleDTO> rolesReturned = roles.Select(r => new RoleDTO() { Name = r.Name });
+            return Ok(rolesReturned);
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
