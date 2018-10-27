@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using TheBoringTeam.AssetManagement.Models.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.Repositories.Interfaces
 {

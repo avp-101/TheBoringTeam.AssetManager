@@ -1,8 +1,11 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using TheBoringTeam.AssetManagement.Models.Interfaces;
 using TheBoringTeam.AssetManagement.Repositories.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.Repositories.Entities
@@ -74,7 +77,7 @@ namespace TheBoringTeam.AssetManagement.Repositories.Entities
             foreach (var entity in entities)
             {
                 entity.Id = ConvertGuidToObjectId(Guid.NewGuid()).ToString();
-                entity.DateCreation = DateTime.UtcNow;
+                entity.CreatedOn = DateTime.UtcNow;
             }
 
             this._collection.InsertMany(entities);
@@ -82,7 +85,7 @@ namespace TheBoringTeam.AssetManagement.Repositories.Entities
 
         public void Update(TBaseEntity entity)
         {
-            entity.DateModification = DateTime.UtcNow;
+            entity.ModifiedOn = DateTime.UtcNow;
             this._collection.ReplaceOne(f => f.Id == entity.Id, entity);
         }
 
