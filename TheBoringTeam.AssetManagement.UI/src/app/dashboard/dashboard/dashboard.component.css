@@ -1,0 +1,32 @@
+.icon {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background-color: #fff;
+    position: relative;
+    color: #3f51b5;
+    margin: 0 auto;
+    font-size: 48px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.card-container {
+    height: 180px;
+    cursor: pointer;
+}
+
+.col-md-6, .col-sm-12 {
+    padding-bottom: 16px;
+}
+
+.card-container .title {
+    text-align: center;
+    font-weight: bold;
+    transition: all .3s ease;
+}
+
+.card-container.hovered .title {
+    font-size: 18px;
+}
+

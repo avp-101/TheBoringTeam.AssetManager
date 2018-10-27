@@ -1,0 +1,14 @@
+<div class="navbar">
+  <button routerLink="dashboard" class="logo" mat-button>
+    Home
+  </button>
+  <button  [matMenuTriggerFor]="menu" *ngIf="isLoggedIn" mat-button class="user">
+    <fa-icon style="font-size: 24px;" [icon]="icons.faUserCircle"></fa-icon> &nbsp; {{user.displayName}}
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="Logout()" mat-menu-item>Log out</button>
+  </mat-menu>
+  <button mat-button *ngIf="!isLoggedIn" routerLink="login">
+    Log in
+  </button>
+</div>

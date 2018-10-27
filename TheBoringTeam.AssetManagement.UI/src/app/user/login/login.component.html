@@ -1,0 +1,28 @@
+<div class="row component-container">
+  <div class="col-sm-12 col-md-6 offset-md-3 login-box">
+    <mat-card>
+      <div class="icon">
+        <img width="75" height="75" src="assets/login.svg" alt="box" />
+      </div>
+      <form novalidate [formGroup]="form">
+        <div class="col-md-12">
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input (keydown.enter)="handleEnter($event)" formControlName="username" matInput placeholder="Type your username...">
+            <mat-error>Username is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div style="margin-top: 4px;" class="col-md-12">
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input (keydown.enter)="handleEnter($event)" formControlName="password" type="password" matInput placeholder="Type your password...">
+            <mat-error>Password is required</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+      <div style="margin-top: 36px;" class="col-md-12">
+        <button [disabled]="form.invalid" (click)="Login()" color="primary" mat-raised-button>Login</button>
+      </div>
+    </mat-card>
+  </div>
+</div>

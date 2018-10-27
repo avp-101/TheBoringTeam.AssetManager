@@ -58,7 +58,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
             userReturned.DisplayName = user.DisplayName;
 
             Role role = this._roleService.GetById(user.RoleId);
-            IEnumerable<Right> rights = this._rightService.Search(r => role.Rights.Contains(r.Id));
+            IEnumerable<Right> rights = this._rightService.Search(r => role.RightIds.Contains(r.Id));
 
             userReturned.Role = new RoleDTO()
             {

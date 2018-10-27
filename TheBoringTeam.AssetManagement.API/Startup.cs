@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,17 @@ namespace TheBoringTeam.AssetManagement.API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html";
+                    context.Response.StatusCode = 200;
+                    await next();
+                }
+            });
         }
     }
 
@@ -111,6 +123,26 @@ namespace TheBoringTeam.AssetManagement.API
                     ValidateAudience = false
                 };
             });
+
+            services.AddAuthorization(opts =>
+            {
+                opts.AddPolicy("AssetsRead", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("AssetsRead"));
+
+                opts.AddPolicy("AssetsEdit", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("AssetsEdit"));
+
+                opts.AddPolicy("UsersRead", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("UsersRead"));
+
+                opts.AddPolicy("UsersEdit", p => p
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireClaim("UsersEdit"));
+            });
+
         }
     }
 }

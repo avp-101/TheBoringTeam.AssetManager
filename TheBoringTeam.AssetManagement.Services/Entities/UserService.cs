@@ -8,7 +8,6 @@ using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using TheBoringTeam.AssetManagement.Models;
-using TheBoringTeam.AssetManagement.Models.DTOs;
 using TheBoringTeam.AssetManagement.Repositories.Interfaces;
 using TheBoringTeam.AssetManagement.Services.Interfaces;
 
@@ -18,11 +17,15 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
     {
 
         private readonly IConfiguration _configuration;
-        public UserService(IBaseMongoRepository<User> repository, IConfiguration configuration) : base(repository)
+        private readonly IRoleService _roleService;
+
+        public UserService(IBaseMongoRepository<User> repository, IRoleService roleService,IConfiguration configuration) : base(repository)
         {
             _configuration = configuration;
+            _roleService = roleService;
         }
-        public UserLoginResultDTO Authenticate(string username, string password)
+
+        public UserLoginResult Authenticate(string username, string password)
         {
             var user = Search(f => f.Username == username && f.Password == password).FirstOrDefault();
             // return null if user not found
@@ -32,30 +35,59 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["appSecret"]);
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, user.Id.ToString())
+            };
+            
+            foreach(var right in user?.Role?.Rights)
+            {
+                claims.Add(new Claim(right.Name, "true"));
+            }
+
+            var identity = new ClaimsIdentity(claims);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
+                Subject = identity,
                 Expires = DateTime.UtcNow.AddHours(6),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var userResult = new UserLoginResultDTO()
+            var userResult = new UserLoginResult()
             {
                 Id = user.Id,
                 DisplayName = user.DisplayName,
                 Email = user.Email,
                 Username = user.Username,
-                RoleId = user.RoleId,
+                Role = user.Role,
                 CreatedOn = user.CreatedOn,
                 ModifiedOn = user.ModifiedOn,
                 AccessToken = tokenHandler.WriteToken(token)
             };
 
-
             return userResult;
+        }
+
+        public override User GetById(string id)
+        {
+            var user = base.GetById(id);
+            user.Role = this._roleService.GetById(user.RoleId);
+
+            return user;
+        }
+
+        public override IEnumerable<User> Search(Expression<Func<User, bool>> filter)
+        {
+            var users = base.Search(filter);
+            var rolesIds = users.Select(u => u.RoleId);
+            var roles = this._roleService.Search(r => rolesIds.Contains(r.Id));
+
+            foreach(var user in users)
+            {
+                user.Role = roles.FirstOrDefault(f => f.Id == user.RoleId);
+            }
+
+            return users;
         }
     }
 }

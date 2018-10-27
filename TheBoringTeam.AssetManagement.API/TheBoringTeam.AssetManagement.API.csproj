@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheBoringTeam.AssetManagement.Models\TheBoringTeam.AssetManagement.Models.csproj" />
     <ProjectReference Include="..\TheBoringTeam.AssetManagement.Repositories\TheBoringTeam.AssetManagement.Repositories.csproj" />
     <ProjectReference Include="..\TheBoringTeam.AssetManagement.Services\TheBoringTeam.AssetManagement.Services.csproj" />
   </ItemGroup>
