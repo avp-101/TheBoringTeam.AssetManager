@@ -23,7 +23,7 @@ namespace TheBoringTeam.AssetManagement.Models
         public string Role { get; set; }
 
         [Required]
-        public string Right { get; set; }
+        public IEnumerable<string> Rights { get; set; }
 
         [Required]
         public DateTime CreatedOn { get; set; }
