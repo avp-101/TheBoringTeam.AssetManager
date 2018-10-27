@@ -13,8 +13,8 @@ namespace TheBoringTeam.AssetManagement.Models
         public string Id { get; set; }
 
         public string Name { get; set; }
-        
-        public IEnumerable<string> RightIds { get; set; }
+
+        public IEnumerable<string> RightIds { get; set; } = new List<string>();
 
         [BsonIgnore]
         public IEnumerable<Right> Rights { get; set; } = new List<Right>();
