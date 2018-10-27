@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TheBoringTeam.AssetManagement.Models;
+using TheBoringTeam.AssetManagement.Repositories.Entities;
+using TheBoringTeam.AssetManagement.Repositories.Interfaces;
+using TheBoringTeam.AssetManagement.Services.Entities;
+using TheBoringTeam.AssetManagement.Services.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.API
 {
@@ -50,7 +55,10 @@ namespace TheBoringTeam.AssetManagement.API
     {
         public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-
+            services.AddTransient<IBaseMongoRepository<User>, BaseMongoRepository<User>>();
+            services.AddTransient<IBaseMongoRepository<Asset>, BaseMongoRepository<Asset>>();
+            services.AddTransient<IBaseService<User>, BaseService<User>>();
+            services.AddTransient<IBaseService<Asset>, BaseService<Asset>>();
         }
     }
 }

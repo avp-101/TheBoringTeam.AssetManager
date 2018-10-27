@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TheBoringTeam.AssetManagement.Models;
 
 namespace TheBoringTeam.AssetManagement.Services.Interfaces
 {
-    class IAssetService
+    public interface IAssetService: IBaseService<Asset>
     {
     }
 }
