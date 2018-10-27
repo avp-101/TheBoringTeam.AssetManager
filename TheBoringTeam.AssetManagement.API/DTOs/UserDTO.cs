@@ -16,6 +16,5 @@ namespace TheBoringTeam.AssetManagement.API.DTOs
 
         [Required]
         public IEnumerable<string> Rights { get; set; }
-
     }
 }

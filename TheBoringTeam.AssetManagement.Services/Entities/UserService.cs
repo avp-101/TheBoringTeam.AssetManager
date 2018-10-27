@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using TheBoringTeam.AssetManagement.Models;
+using TheBoringTeam.AssetManagement.Models.DTOs;
 using TheBoringTeam.AssetManagement.Repositories.Interfaces;
 using TheBoringTeam.AssetManagement.Services.Interfaces;
 
@@ -21,7 +22,7 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
         {
             _configuration = configuration;
         }
-        public string Authenticate(string username, string password)
+        public UserLoginResultDTO Authenticate(string username, string password)
         {
             var user = Search(f => f.Username == username && f.Password == password).FirstOrDefault();
             // return null if user not found
@@ -41,7 +42,21 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            var userResult = new UserLoginResultDTO()
+            {
+                Id = user.Id,
+                DisplayName = user.DisplayName,
+                Email = user.Email,
+                Username = user.Username,
+                RoleId = user.RoleId,
+                Rights = user.Rights,
+                CreatedOn = user.CreatedOn,
+                ModifiedOn = user.ModifiedOn,
+                AccessToken = tokenHandler.WriteToken(token)
+            };
+
+
+            return userResult;
         }
     }
 }
