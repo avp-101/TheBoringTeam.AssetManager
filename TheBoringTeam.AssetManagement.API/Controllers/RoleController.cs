@@ -37,10 +37,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
             RoleDTO roleReturned = new RoleDTO();
 
             roleReturned.Name = role.Name;
-
-            IEnumerable<Right> rights = this._rightService.Search(r => role.RightIds.Contains(r.Id));
-
-            roleReturned.Rights = rights.Select(r => new RightDTO() {Name = r.Name});
+            roleReturned.Rights = role.Rights.Select(r => new RightDTO() { Name = r.Name });
             return Ok(roleReturned);
         }
 
@@ -50,6 +47,16 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
         {
             try
             {
+                if (this._roleService.Search(r => r.Name == request.Name).Any())
+                {
+                    return BadRequest("Name must be unique");
+                }
+
+                if (this._rightService.Search(r => request.Rights.Contains(r.Id)).Count() != request.Rights.Count())
+                {
+                    return BadRequest("You are trying to insert rights that do not exist.");
+                }
+
                 Role role = new Role()
                 {
                     Name = request.Name,

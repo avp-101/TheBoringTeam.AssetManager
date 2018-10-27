@@ -17,7 +17,7 @@ namespace TheBoringTeam.AssetManagement.Models
         public IEnumerable<string> RightIds { get; set; }
 
         [BsonIgnore]
-        public IEnumerable<Right> Rights { get; set; }
+        public IEnumerable<Right> Rights { get; set; } = new List<Right>();
         
         public DateTime CreatedOn { get; set; }
 

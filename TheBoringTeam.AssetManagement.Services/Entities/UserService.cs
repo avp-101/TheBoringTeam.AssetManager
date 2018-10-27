@@ -8,7 +8,6 @@ using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using TheBoringTeam.AssetManagement.Models;
-using TheBoringTeam.AssetManagement.Models.DTOs;
 using TheBoringTeam.AssetManagement.Repositories.Interfaces;
 using TheBoringTeam.AssetManagement.Services.Interfaces;
 
