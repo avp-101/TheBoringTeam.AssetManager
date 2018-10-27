@@ -9,5 +9,6 @@ namespace TheBoringTeam.AssetManagement.Services.Interfaces
     public interface IAssetService: IBaseService<Asset>
     {
         Task AnalyzeImage(string base64image);
+        Task AnalyzeText(string base64image);
     }
 }
