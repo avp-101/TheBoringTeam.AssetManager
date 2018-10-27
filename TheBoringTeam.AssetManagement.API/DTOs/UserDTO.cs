@@ -9,12 +9,13 @@ namespace TheBoringTeam.AssetManagement.API.DTOs
     public class UserDTO
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public string DisplayName { get; set; }
 
         [Required]
-        public IEnumerable<string> Rights { get; set; }
+        public RoleDTO Role { get; set; }
+
     }
 }

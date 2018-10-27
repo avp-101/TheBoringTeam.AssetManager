@@ -11,7 +11,7 @@ using TheBoringTeam.AssetManagement.Services.Interfaces;
 
 namespace TheBoringTeam.AssetManagement.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/right")]
     [ApiController]
     public class RightController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Insert([FromBody] RightCreateDTO request)
+        public async Task<IActionResult> Insert([FromBody] RightDTO request)
         {
             try
             {

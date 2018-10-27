@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheBoringTeam.AssetManagement.API.DTOs
 {
-    public class RoleCreateDTO
+    public class RoleInputDTO
     {
         public string Name { get; set; }
 

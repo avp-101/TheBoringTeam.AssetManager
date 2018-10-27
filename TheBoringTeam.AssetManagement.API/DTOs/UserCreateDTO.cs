@@ -19,8 +19,7 @@ namespace TheBoringTeam.AssetManagement.API.DTOs
 
         [Required]
         public string Password { get; set; }
-
-        [Required]
+        
         public string RoleId { get; set; }
     }
 }

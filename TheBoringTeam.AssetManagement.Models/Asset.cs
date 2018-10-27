@@ -8,16 +8,12 @@ namespace TheBoringTeam.AssetManagement.Models
 {
     public class Asset: IIdentifiable, ITrackable
     {
-        [Required]
         public string Id { get; set; }
-
-        [Required]
+        
         public IEnumerable<string> Tags { get; set; }
-
-        [Required]
+        
         public IDictionary<string, string> Extra { get; set; }
-
-        [Required]
+        
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
