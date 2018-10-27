@@ -22,6 +22,14 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
             _assetService = assetService;
         }
 
+        [HttpPost]
+        [Route("upload")]
+        public async Task<IActionResult> Upload([FromBody]ImageUploadDTO data)
+        {
+            await _assetService.AnalyzeImage(data.base64image);
+            return Ok();
+        }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(string id)
