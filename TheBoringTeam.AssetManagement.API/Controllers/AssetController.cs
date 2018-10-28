@@ -16,26 +16,48 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
     public class AssetController : ControllerBase
     {
         private readonly IAssetService _assetService;
+        private readonly IAssetErrorService _assetErrorService;
 
-        public AssetController(IAssetService assetService)
+        public AssetController(IAssetService assetService, IAssetErrorService assetErrorService)
         {
             _assetService = assetService;
+            _assetErrorService = assetErrorService;
         }
 
         [HttpPost]
         [Route("upload")]
         public async Task<IActionResult> Upload([FromBody]ImageUploadDTO data)
         {
-            await _assetService.AnalyzeImage(data.base64image);
-            return Ok();
+            var imageResult = await _assetService.AnalyzeImage(data.base64image);
+            return Ok(imageResult);
         }
-        
+
         [HttpPost]
         [Route("analyzetext")]
         public async Task<IActionResult> AnalyzeText([FromBody] ImageUploadDTO data)
         {
             await _assetService.AnalyzeText(data.base64image);
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("reporterror")]
+        public async Task<IActionResult> ReportError([FromBody] AssetErrorDTO error)
+        {
+            try
+            {
+                AssetError assetError = new AssetError()
+                {
+                    Title = error.Title,
+                    Description = error.Description
+                };
+                _assetErrorService.Insert(assetError);
+                return Ok(assetError);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpGet]

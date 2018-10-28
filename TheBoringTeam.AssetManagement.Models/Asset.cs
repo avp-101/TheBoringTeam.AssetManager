@@ -15,10 +15,15 @@ namespace TheBoringTeam.AssetManagement.Models
         public IEnumerable<string> Tags { get; set; }
         
         [BsonExtraElements]
-        public IDictionary<string, string> Extra { get; set; }
+        public IDictionary<string, object> Extra { get; set; }
         
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
+
+        public IEnumerable<string> AssetErrorIds { get; set; } = new List<string>();
+
+        [BsonIgnore]
+        public IEnumerable<AssetError> AssetError { get; set; } = new List<AssetError>();
     }
 }

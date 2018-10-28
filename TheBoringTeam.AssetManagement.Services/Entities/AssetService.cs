@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TheBoringTeam.AssetManagement.Models;
+using TheBoringTeam.AssetManagement.Models.Infrastructure;
 using TheBoringTeam.AssetManagement.Repositories.Interfaces;
 using TheBoringTeam.AssetManagement.Services.Interfaces;
 
@@ -58,7 +60,7 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
             }
         }
 
-        public async Task AnalyzeImage(string base64image)
+        public async Task<ImageRecognitionResult> AnalyzeImage(string base64image)
         {
             //to remove metadata
             base64image = base64image.Substring(23);
@@ -81,11 +83,14 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
                     response = await client.PostAsync(uri, content);
                 }
                 string contentString = await response.Content.ReadAsStringAsync();
+                ImageRecognitionResult imageResult = JsonConvert.DeserializeObject<ImageRecognitionResult>(contentString);
+                return imageResult;
             }
             catch (Exception ex)
             {
 
             }
+            return null;
         }
     }
 }

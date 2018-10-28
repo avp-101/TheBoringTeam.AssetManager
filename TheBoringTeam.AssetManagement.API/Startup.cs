@@ -95,14 +95,21 @@ namespace TheBoringTeam.AssetManagement.API
                 new BaseMongoRepository<Role>(configuration["mongoConnectionString"],
                     configuration["mongoDatabaseName"],
                     true));
+            services.AddTransient<IBaseMongoRepository<AssetError>>(f =>
+                new BaseMongoRepository<AssetError>(configuration["mongoConnectionString"],
+                    configuration["mongoDatabaseName"],
+                    true));
             services.AddTransient<IBaseService<User>, BaseService<User>>();
             services.AddTransient<IBaseService<Asset>, BaseService<Asset>>();
             services.AddTransient<IBaseService<Role>, BaseService<Role>>();
             services.AddTransient<IBaseService<Right>, BaseService<Right>>();
+            services.AddTransient<IBaseService<AssetError>, BaseService<AssetError>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAssetService, AssetService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IRightService, RightService>();
+            services.AddTransient<IAssetErrorService, AssetErrorService>();
+
         }
         public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
