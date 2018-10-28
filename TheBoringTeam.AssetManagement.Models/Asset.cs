@@ -15,7 +15,7 @@ namespace TheBoringTeam.AssetManagement.Models
         public IEnumerable<string> Tags { get; set; }
         
         [BsonExtraElements]
-        public IDictionary<string, string> Extra { get; set; }
+        public IDictionary<string, object> Extra { get; set; }
         
         public DateTime CreatedOn { get; set; }
 

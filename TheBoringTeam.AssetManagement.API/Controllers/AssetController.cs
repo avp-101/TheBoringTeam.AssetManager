@@ -31,6 +31,13 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
         }
 
         [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(this._assetService.Search(f => true));
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById(string id)
         {

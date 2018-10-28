@@ -12,7 +12,7 @@ namespace TheBoringTeam.AssetManagement.API.DTOs
         public IEnumerable<string> Tags { get; set; }
 
         [Required]
-        public IDictionary<string, string> Extra { get; set; }
+        public IDictionary<string, object> Extra { get; set; }
 
     }
 }
