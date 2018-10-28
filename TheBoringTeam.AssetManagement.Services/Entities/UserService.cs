@@ -17,12 +17,12 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
     {
 
         private readonly IConfiguration _configuration;
-        private readonly IRoleService _roleService;
+        private readonly IBaseMongoRepository<Role> _roleRepository;
 
-        public UserService(IBaseMongoRepository<User> repository, IRoleService roleService,IConfiguration configuration) : base(repository)
+        public UserService(IBaseMongoRepository<User> repository, IBaseMongoRepository<Role> roleRepository, IConfiguration configuration) : base(repository)
         {
             _configuration = configuration;
-            _roleService = roleService;
+            _roleRepository = roleRepository;
         }
 
         public UserLoginResult Authenticate(string username, string password)
@@ -71,7 +71,7 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
         public override User GetById(string id)
         {
             var user = base.GetById(id);
-            user.Role = this._roleService.GetById(user.RoleId);
+            user.Role = this._roleRepository.Get(f => f.Id == id).FirstOrDefault();
 
             return user;
         }
@@ -80,7 +80,7 @@ namespace TheBoringTeam.AssetManagement.Services.Entities
         {
             var users = base.Search(filter);
             var rolesIds = users.Select(u => u.RoleId);
-            var roles = this._roleService.Search(r => rolesIds.Contains(r.Id));
+            var roles = this._roleRepository.Get(r => rolesIds.Contains(r.Id));
 
             foreach(var user in users)
             {

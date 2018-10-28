@@ -29,6 +29,14 @@ namespace TheBoringTeam.AssetManagement.API.Controllers
             await _assetService.AnalyzeImage(data.base64image);
             return Ok();
         }
+        
+        [HttpPost]
+        [Route("analyzetext")]
+        public async Task<IActionResult> AnalyzeText([FromBody] ImageUploadDTO data)
+        {
+            await _assetService.AnalyzeText(data.base64image);
+            return Ok();
+        }
 
         [HttpGet]
         [Route("")]
