@@ -3,6 +3,8 @@ import { UserService } from '../../core/services/user.service';
 import { Router } from '../../../../node_modules/@angular/router';
 import { AlertService } from '../../core/services/alert.service';
 import { FormBuilder, Validators, FormGroup } from '../../../../node_modules/@angular/forms';
+import { IconDefinition } from '../../../../node_modules/@fortawesome/fontawesome-svg-core';
+import { faUser, faKey } from '../../../../node_modules/@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,10 @@ export class LoginComponent implements OnInit {
 
   public form: FormGroup= null;
   public isLogggingIn: boolean = false;
+  public icons: { [key: string]: IconDefinition } = {
+    "faUser": faUser,
+    "faKey": faKey
+  }
 
   constructor(
     private userService: UserService,

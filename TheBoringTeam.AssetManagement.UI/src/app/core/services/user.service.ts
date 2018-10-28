@@ -10,13 +10,14 @@ import { Router } from '../../../../node_modules/@angular/router';
 })
 export class UserService {
 
-  private user: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private user$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   
   public get userChange() {
-    return this.user.asObservable();
+    return this.user$.asObservable();
   }
   public isLoggedIn: boolean = false;
   public accessToken: string = null;
+  public user: any = null;
   
   constructor(
     private httpClient: HttpClient,
@@ -30,7 +31,8 @@ export class UserService {
     .subscribe((result: any) => {
       this.accessToken = result.accessToken;
       this.isLoggedIn = true;
-      this.user.next(result);
+      this.user = result;
+      this.user$.next(result);
       obs.next(result);
       obs.complete();
     }, (err) => {
@@ -46,7 +48,8 @@ export class UserService {
   public Logout() {
     this.accessToken = null;
     this.isLoggedIn = false;
-    this.user.next(null);
+    this.user = null;
+    this.user$.next(null);
     this.router.navigate(['/login']);
   }
 }

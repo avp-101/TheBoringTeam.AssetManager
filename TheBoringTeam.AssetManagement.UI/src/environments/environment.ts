@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://assetmanagementportal.azurewebsites.net'
+  apiUrl: 'http://localhost:53243'
 };
 
 /*
